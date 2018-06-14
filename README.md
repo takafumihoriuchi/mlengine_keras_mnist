@@ -1,3 +1,5 @@
+(* need to download mnist.pkl; follow steps in this README.md)
+
 # Keras on Cloud ML Engine: MNIST Multi-Layer Perceptron
 
 ## Keras MNIST MLP
