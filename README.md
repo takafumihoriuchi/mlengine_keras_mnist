@@ -1,4 +1,7 @@
-(* need to download mnist.pkl; follow steps in this README.md)
+this is a repository cloned from https://github.com/clintonreece/keras-cloud-ml-engine.git
+the file structure is modified from the original repository
+before execution, 'mnist.pkl' should be downloaded, following the steps below
+
 
 # Keras on Cloud ML Engine: MNIST Multi-Layer Perceptron
 
