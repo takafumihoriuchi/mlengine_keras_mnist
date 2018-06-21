@@ -69,6 +69,7 @@ def train_model(train_file='data/mnist.pkl',
     model.summary()
     
     model.compile(loss='categorical_crossentropy',
+    # model.compile(loss='mean_squared_error',
                   optimizer=RMSprop(),
                   metrics=['accuracy'])
 

@@ -64,7 +64,8 @@ def train_model(train_file='data/mnist.pkl',
     model.add(Dropout(dropout_one))
     model.add(Dense(512, activation='relu'))
     model.add(Dropout(dropout_two))
-    model.add(Dense(10, activation='softmax'))
+    # model.add(Dense(10, activation='softmax'))
+    model.add(Dense(10, activation='relu'))
 
     model.summary()
 
@@ -82,6 +83,8 @@ def train_model(train_file='data/mnist.pkl',
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
 
+    # tensorboard()
+    
     # Save the model locally
     model.save('model.h5')
 
