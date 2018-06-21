@@ -20,6 +20,7 @@ from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
 from tensorflow.python.lib.io import file_io  # for better file I/O
 import sys
+from keras.callbacks import TensorBoard
 
 batch_size = 128
 num_classes = 10
@@ -73,17 +74,21 @@ def train_model(train_file='data/mnist.pkl',
                   optimizer=RMSprop(),
                   metrics=['accuracy'])
 
+    tensorboard_instance = TensorBoard()
+    
     history = model.fit(x_train, y_train,
                         batch_size=batch_size,
                         epochs=epochs,
                         verbose=1,
-                        validation_data=(x_test, y_test))
+                        validation_data=(x_test, y_test),
+                        callbacks=[tensorboard_instance])
 
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
-
-    # tensorboard()
+    # tf.summary.histogram("test_loss", score[0])
+    # tf.summary.histogram("test_accuracy", score[1])
+    
     
     # Save the model locally
     model.save('model.h5')
