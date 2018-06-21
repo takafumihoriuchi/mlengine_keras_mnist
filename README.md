@@ -1,4 +1,4 @@
-This is a repository cloned from https://github.com/clintonreece/keras-cloud-ml-engine.git  
+**This is a repository cloned from https://github.com/clintonreece/keras-cloud-ml-engine.git**  
 The file structure is modified from the original repository.  
 Before execution, 'mnist.pkl' should be downloaded, following the steps below.  
 
