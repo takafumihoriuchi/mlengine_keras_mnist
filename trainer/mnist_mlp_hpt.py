@@ -74,7 +74,10 @@ def train_model(train_file='data/mnist.pkl',
                   optimizer=RMSprop(),
                   metrics=['accuracy'])
 
-    tensorboard_instance = TensorBoard()
+    tensorboard_instance = TensorBoard(log_dir='gs://keras-mnist-bucket/mnist_mlp_hpt_train_20180622_135806',
+                                       histogram_freq=0,
+                                       write_graph=True,
+                                       embeddings_freq=0)
     
     history = model.fit(x_train, y_train,
                         batch_size=batch_size,
