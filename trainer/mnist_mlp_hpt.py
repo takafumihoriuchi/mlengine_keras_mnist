@@ -21,6 +21,9 @@ from keras.optimizers import RMSprop
 from tensorflow.python.lib.io import file_io  # for better file I/O
 import sys
 from keras.callbacks import TensorBoard
+from tensorflow.core.framework.summary_pb2 import Summary
+import os
+import tensorflow as tf
 
 batch_size = 128
 num_classes = 10
@@ -28,11 +31,8 @@ epochs = 20
 
 
 # Create a function to allow for different training data and other options
-def train_model(train_file='data/mnist.pkl',
-                job_dir='./tmp/mnist_mlp',
-                dropout_one=0.2,
-                dropout_two=0.2,
-                **args):
+def train_model(train_file='data/mnist.pkl', job_dir='./tmp/mnist_mlp', dropout_one=0.2, dropout_two=0.2, **args):
+    
     # set the logging path for ML Engine logging to Storage bucket
     logs_path = job_dir + '/logs/' + datetime.now().isoformat()
     print('Using logs_path located at {}'.format(logs_path))
@@ -87,8 +87,9 @@ def train_model(train_file='data/mnist.pkl',
                         callbacks=[tensorboard_instance])
 
     score = model.evaluate(x_test, y_test, verbose=0)
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
+    print('Test loss:' + "{0:.9f}".format(score[0]))
+    print('Test accuracy:' + "{0:.9f}".format(score[1]))
+    # print('Test accuracy:' + score[1])
     # tf.summary.histogram("test_loss", score[0])
     # tf.summary.histogram("test_accuracy", score[1])
     
@@ -100,6 +101,13 @@ def train_model(train_file='data/mnist.pkl',
     with file_io.FileIO('model.h5', mode='r') as input_f:
         with file_io.FileIO(job_dir + '/model.h5', mode='w+') as output_f:
             output_f.write(input_f.read())
+
+    # for hyperparameter tuning
+    summary = Summary(value=[Summary.Value(tag='metic1', simple_value=score[1]/2.0)])
+    eval_path = os.path.join(job_dir, 'metric1')
+    summary_writer = tf.summary.FileWriter(eval_path)
+    summary_writer.add_summary(summary)
+    summary_writer.flush()
 
 
 if __name__ == '__main__':
