@@ -12,17 +12,11 @@ from __future__ import print_function
 import argparse
 import pickle  # for handling the new data source
 import h5py  # for saving the model
-
-# import keras
-from tensorflow.contrib.keras.python import keras
+from tensorflow.contrib.keras.python import keras  # "import keras" is insufficient
 from tensorflow.contrib.keras.python.keras.models import Sequential
 from tensorflow.contrib.keras.python.keras.layers import Dense, Dropout
 from tensorflow.contrib.keras.python.keras.optimizers import RMSprop
-
 from datetime import datetime  # for filename conventions
-# from keras.models import Sequential
-# from keras.layers import Dense, Dropout
-# from keras.optimizers import RMSprop
 from tensorflow.python.lib.io import file_io  # for better file I/O
 import sys
 
@@ -71,12 +65,10 @@ def train_model(train_file='data/mnist.pkl',
     model.add(Dense(512, activation='relu'))
     model.add(Dropout(0.2))
     model.add(Dense(10, activation='softmax'))
-    # model.add(Dense(10, activation='relu'))
 
     model.summary()
     
     model.compile(loss='categorical_crossentropy',
-    # model.compile(loss='mean_squared_error',
                   optimizer=RMSprop(),
                   metrics=['accuracy'])
 

@@ -13,24 +13,18 @@ from __future__ import print_function
 import argparse
 import pickle  # for handling the new data source
 import h5py  # for saving the model
-
-# import keras
-from tensorflow.contrib.keras.python import keras
+import sys
+import os
+import tensorflow as tf
+from tensorflow.contrib.keras.python import keras # "import keras" is insufficient
 from tensorflow.contrib.keras.python.keras.models import Sequential
 from tensorflow.contrib.keras.python.keras.layers import Dense, Dropout
 from tensorflow.contrib.keras.python.keras.optimizers import RMSprop
 from tensorflow.contrib.keras.python.keras.callbacks import TensorBoard
-
 from datetime import datetime  # for filename conventions
-# from keras.models import Sequential
-# from keras.layers import Dense, Dropout
-# from keras.optimizers import RMSprop
 from tensorflow.python.lib.io import file_io  # for better file I/O
-import sys
-# from keras.callbacks import TensorBoard
 from tensorflow.core.framework.summary_pb2 import Summary
-import os
-import tensorflow as tf
+
 
 batch_size = 128
 num_classes = 10
@@ -73,7 +67,6 @@ def train_model(train_file='data/mnist.pkl', job_dir='./tmp/mnist_mlp', dropout_
     model.add(Dense(512, activation='relu'))
     model.add(Dropout(dropout_two))
     model.add(Dense(10, activation='softmax'))
-    # model.add(Dense(10, activation='relu'))
 
     model.summary()
 
@@ -96,11 +89,7 @@ def train_model(train_file='data/mnist.pkl', job_dir='./tmp/mnist_mlp', dropout_
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test loss:' + "{0:.9f}".format(score[0]))
     print('Test accuracy:' + "{0:.9f}".format(score[1]))
-    # print('Test accuracy:' + score[1])
-    # tf.summary.histogram("test_loss", score[0])
-    # tf.summary.histogram("test_accuracy", score[1])
-    
-    
+        
     # Save the model locally
     model.save('model.h5')
 
