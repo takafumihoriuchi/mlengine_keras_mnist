@@ -405,7 +405,7 @@ To submit a job to Cloud ML Engine:
 ```shell
 gcloud ml-engine jobs submit training $JOB_NAME \
     --job-dir $JOB_DIR \
-    --runtime-version 1.0 \
+    --runtime-version 1.2 \
     --module-name trainer.mnist_mlp \
     --package-path ./trainer \
     --region $REGION \
